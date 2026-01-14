@@ -12,7 +12,7 @@ bioinformatics workflows.
 - Basic statistical summaries
 - Introductory use of Biopython and BLAST automation
 
-Highlighted Project
+### Highlighted Project
 - **MS/MS Peptide Fragment Ion Annotator**  
   A Python script that parses mzXML files, computes theoretical b and y ions
   for a given peptide sequence, matches them to experimental MS/MS spectra,
