@@ -1,3 +1,14 @@
+"""
+Purpose:
+Retrieve a UniProt XML record from a provided URL and extract
+bibliographic reference information, including titles, journals,
+publication years, and authors.
+
+Concepts demonstrated:
+- HTTP requests using urllib
+- XML parsing with ElementTree
+"""
+
 import xml.etree.ElementTree as ET
 import urllib.request
 import sys
