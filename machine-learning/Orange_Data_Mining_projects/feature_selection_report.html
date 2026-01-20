@@ -1,0 +1,447 @@
+<!DOCTYPE html><html><head>
+    <meta charset="utf-8">
+    <title>Orange Report</title>
+
+    <style>
+    html, body, table {
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-size: 13px;
+        margin:0px;
+        padding:0;
+        border:0 none;
+    }
+
+    h1, h2 , h3, h4, h5 {
+       padding: 1px;
+       font-size:100%;
+    }
+
+    h1 {
+        color: white;
+        background-color: black;
+        padding: 4px;
+        margin-top: 12px;
+        margin-bottom: 6px;
+    }
+
+    h2 {
+        border-bottom: 1px solid black;
+        padding-left: 2px;
+    }
+
+    ul, table, p {
+        padding: 10px;
+    }
+
+    table {
+        margin-left: -6px;
+    }
+
+    span.timestamp {
+        position: absolute;
+        right: 40px;
+        color:#ddd;
+    }
+
+    div.selected, div.normal {
+        margin: 5px;
+    }
+
+    div.selected {
+        background: #ddd;
+    }
+    @media print{
+        div.selected {
+            background: inherit;
+        }
+        ::-webkit-input-placeholder {
+            color: transparent;
+        }
+    }
+
+    div.content {
+        margin-left: 15px;
+    }
+
+    th, td {
+        text-align: left;
+        padding: 2px 6px 2px 6px;
+    }
+
+    th {
+        font-weight: bold;
+    }
+
+    @media screen {
+        td, th {
+            white-space: nowrap;
+        }
+    }
+
+    .caption {
+        text-align: center;
+        font-size: 90%;
+    }
+
+    img {
+        display: block;
+        margin: auto;
+        max-height: 20cm;
+    }
+
+    span.legend-square {
+        width: 1em;
+        height: 1em;
+        margin-right: 6px;
+        display: inline-block;
+    }
+
+    span.legend-item {
+        margin-right: 24px;
+    }
+
+    textarea {
+        border: 1px solid silver;
+        font-style: italic;
+        width: 100%;
+        height: 4em;
+    }
+
+    .textwrapper {
+        padding: 15px;
+    }
+
+    div.normal textarea:invalid {
+        display: none;
+    }
+
+    div.selected textarea {
+        display: block;
+    }
+
+    @media print{
+        section.section, img {
+            page-break-inside: avoid;
+        }
+    }
+    </style>
+    <script>
+    function scrollToId(id) {
+        var sel_el = document.getElementById(id);
+        if (sel_el != undefined) {
+            sel_el.scrollIntoView();
+            return true;
+        }
+        return false;
+    };
+
+    function setSelectedId(id) {
+        var sel_el = document.getElementsByClassName('selected')[0];
+        if (sel_el != undefined && sel_el.id != id) {
+           sel_el.className = 'normal';
+        }
+        sel_el = document.getElementById(id);
+        if (sel_el != undefined) {
+            sel_el.className = 'selected';
+            return true;
+        }
+        return false;
+    };
+    </script>
+
+</head><body onload="(function (id) {     setSelectedId(id); scrollToId(id); }(&quot;1524103704736&quot;));">
+
+ 
+
+<div id="1523716010000" class="normal" onclick="pybridge._select_item(this.id)"><section class="section"><h1>Data Table <span class="timestamp">Fri Nov 29 24, 17:37:01</span></h1><div class="content">
+<ul><b>Data instances:</b> 10<br><b>Features:</b> 1<br><b>Meta attributes:</b> 1<br></ul><table>
+<tbody><tr><th></th><th style="color:black; background:transparent; text-align:left; vertical-align:middle;">name</th>
+<th style="color:black; background:transparent; text-align:left; vertical-align:middle;">4</th>
+</tr><tr><th style="color:black; background:transparent; text-align:left; vertical-align:middle;">1</th>
+<td style="color:#000000; background:#dcdcc8; text-align:left; vertical-align:middle;">intercept</td>
+<td style="color:black; background:transparent; text-align:right; vertical-align:middle;">-1.10335</td>
+</tr><tr><th style="color:black; background:transparent; text-align:left; vertical-align:middle;">2</th>
+<td style="color:#000000; background:#dcdcc8; text-align:left; vertical-align:middle;">clump_thickness</td>
+<td style="color:black; background:transparent; text-align:right; vertical-align:middle;">1.29425</td>
+</tr><tr><th style="color:black; background:transparent; text-align:left; vertical-align:middle;">3</th>
+<td style="color:#000000; background:#dcdcc8; text-align:left; vertical-align:middle;">U_cell_size</td>
+<td style="color:black; background:transparent; text-align:right; vertical-align:middle;">0.219355</td>
+</tr><tr><th style="color:black; background:transparent; text-align:left; vertical-align:middle;">4</th>
+<td style="color:#000000; background:#dcdcc8; text-align:left; vertical-align:middle;">U_cell_shape</td>
+<td style="color:black; background:transparent; text-align:right; vertical-align:middle;">0.976172</td>
+</tr><tr><th style="color:black; background:transparent; text-align:left; vertical-align:middle;">5</th>
+<td style="color:#000000; background:#dcdcc8; text-align:left; vertical-align:middle;">marginal_adhesion</td>
+<td style="color:black; background:transparent; text-align:right; vertical-align:middle;">0.598322</td>
+</tr><tr><th style="color:black; background:transparent; text-align:left; vertical-align:middle;">6</th>
+<td style="color:#000000; background:#dcdcc8; text-align:left; vertical-align:middle;">single_epithelial_cell_size</td>
+<td style="color:black; background:transparent; text-align:right; vertical-align:middle;">0.606589</td>
+</tr><tr><th style="color:black; background:transparent; text-align:left; vertical-align:middle;">7</th>
+<td style="color:#000000; background:#dcdcc8; text-align:left; vertical-align:middle;">bare_nuclei</td>
+<td style="color:black; background:transparent; text-align:right; vertical-align:middle;">1.31186</td>
+</tr><tr><th style="color:black; background:transparent; text-align:left; vertical-align:middle;">8</th>
+<td style="color:#000000; background:#dcdcc8; text-align:left; vertical-align:middle;">bland_chromatin</td>
+<td style="color:black; background:transparent; text-align:right; vertical-align:middle;">0.7267</td>
+</tr><tr><th style="color:black; background:transparent; text-align:left; vertical-align:middle;">9</th>
+<td style="color:#000000; background:#dcdcc8; text-align:left; vertical-align:middle;">normal_nucleoli</td>
+<td style="color:black; background:transparent; text-align:right; vertical-align:middle;">0.375726</td>
+</tr><tr><th style="color:black; background:transparent; text-align:left; vertical-align:middle;">10</th>
+<td style="color:#000000; background:#dcdcc8; text-align:left; vertical-align:middle;">mitoses</td>
+<td style="color:black; background:transparent; text-align:right; vertical-align:middle;">0.696544</td>
+</tr></tbody></table></div></section>
+
+<div class="textwrapper"><textarea placeholder="Write a comment..." oninput="this.innerHTML = this.value;pybridge._add_comment(this.parentNode.parentNode.id, this.value);">Part 2 number 8. Data Table C=1:
+In this case, it does not look like the L1 regularization is having any effect. The coefficients are varied but none are 0.0, or even really very close to 0.0. So it is not really reducing the coefficients and identifying which features are more/less important for making predictions. </textarea></div></div><div id="1523715779616" class="normal" onclick="pybridge._select_item(this.id)"><section class="section"><h1>Test and Score <span class="timestamp">Fri Nov 29 24, 17:38:48</span></h1><div class="content">
+<h2>Settings</h2><ul><b>Sampling type:</b> No sampling, test on testing data<br><b>Target class:</b> None, show average over classes<br></ul><h2>Scores</h2><table>
+<tbody><tr><th style="color:black; background:transparent; text-align:left; vertical-align:middle;">Model</th>
+<th style="color:black; background:transparent; text-align:left; vertical-align:middle;">AUC</th>
+<th style="color:black; background:transparent; text-align:left; vertical-align:middle;">CA</th>
+<th style="color:black; background:transparent; text-align:left; vertical-align:middle;">F1</th>
+<th style="color:black; background:transparent; text-align:left; vertical-align:middle;">Prec</th>
+<th style="color:black; background:transparent; text-align:left; vertical-align:middle;">Recall</th>
+<th style="color:black; background:transparent; text-align:left; vertical-align:middle;">Spec</th>
+</tr><tr><td style="color:black; background:transparent; text-align:left; vertical-align:middle;">Logistic Regression</td>
+<td style="color:black; background:transparent; text-align:right; vertical-align:middle;">0.998</td>
+<td style="color:black; background:transparent; text-align:right; vertical-align:middle;">0.975</td>
+<td style="color:black; background:transparent; text-align:right; vertical-align:middle;">0.975</td>
+<td style="color:black; background:transparent; text-align:right; vertical-align:middle;">0.975</td>
+<td style="color:black; background:transparent; text-align:right; vertical-align:middle;">0.975</td>
+<td style="color:black; background:transparent; text-align:right; vertical-align:middle;">0.968</td>
+</tr></tbody></table></div></section>
+
+<div class="textwrapper"><textarea placeholder="Write a comment..." oninput="this.innerHTML = this.value;pybridge._add_comment(this.parentNode.parentNode.id, this.value);">Part 2 number 8. Test and Score C=1: 
+This model is doing a good job at classiciation. All of the metrics are really close to 1, indicating that the model is successfully in classifying the data. 
+</textarea></div></div><div id="1524354111744" class="normal" onclick="pybridge._select_item(this.id)"><section class="section"><h1>Data Table <span class="timestamp">Fri Nov 29 24, 18:55:41</span></h1><div class="content">
+<ul><b>Data instances:</b> 10<br><b>Features:</b> 1<br><b>Meta attributes:</b> 1<br></ul><table>
+<tbody><tr><th></th><th style="color:black; background:transparent; text-align:left; vertical-align:middle;">name</th>
+<th style="color:black; background:transparent; text-align:left; vertical-align:middle;">4</th>
+</tr><tr><th style="color:black; background:transparent; text-align:left; vertical-align:middle;">1</th>
+<td style="color:#000000; background:#dcdcc8; text-align:left; vertical-align:middle;">intercept</td>
+<td style="color:black; background:transparent; text-align:right; vertical-align:middle;">-0.596201</td>
+</tr><tr><th style="color:black; background:transparent; text-align:left; vertical-align:middle;">2</th>
+<td style="color:#000000; background:#dcdcc8; text-align:left; vertical-align:middle;">clump_thickness</td>
+<td style="color:black; background:transparent; text-align:right; vertical-align:middle;">0.738128</td>
+</tr><tr><th style="color:black; background:transparent; text-align:left; vertical-align:middle;">3</th>
+<td style="color:#000000; background:#dcdcc8; text-align:left; vertical-align:middle;">U_cell_size</td>
+<td style="color:black; background:transparent; text-align:right; vertical-align:middle;">0.550934</td>
+</tr><tr><th style="color:black; background:transparent; text-align:left; vertical-align:middle;">4</th>
+<td style="color:#000000; background:#dcdcc8; text-align:left; vertical-align:middle;">U_cell_shape</td>
+<td style="color:black; background:transparent; text-align:right; vertical-align:middle;">0.61791</td>
+</tr><tr><th style="color:black; background:transparent; text-align:left; vertical-align:middle;">5</th>
+<td style="color:#000000; background:#dcdcc8; text-align:left; vertical-align:middle;">marginal_adhesion</td>
+<td style="color:black; background:transparent; text-align:right; vertical-align:middle;">0.199048</td>
+</tr><tr><th style="color:black; background:transparent; text-align:left; vertical-align:middle;">6</th>
+<td style="color:#000000; background:#dcdcc8; text-align:left; vertical-align:middle;">single_epithelial_cell_size</td>
+<td style="color:black; background:transparent; text-align:right; vertical-align:middle;">0.30063</td>
+</tr><tr><th style="color:black; background:transparent; text-align:left; vertical-align:middle;">7</th>
+<td style="color:#000000; background:#dcdcc8; text-align:left; vertical-align:middle;">bare_nuclei</td>
+<td style="color:black; background:transparent; text-align:right; vertical-align:middle;">1.03416</td>
+</tr><tr><th style="color:black; background:transparent; text-align:left; vertical-align:middle;">8</th>
+<td style="color:#000000; background:#dcdcc8; text-align:left; vertical-align:middle;">bland_chromatin</td>
+<td style="color:black; background:transparent; text-align:right; vertical-align:middle;">0.419183</td>
+</tr><tr><th style="color:black; background:transparent; text-align:left; vertical-align:middle;">9</th>
+<td style="color:#000000; background:#dcdcc8; text-align:left; vertical-align:middle;">normal_nucleoli</td>
+<td style="color:black; background:transparent; text-align:right; vertical-align:middle;">0.237596</td>
+</tr><tr><th style="color:black; background:transparent; text-align:left; vertical-align:middle;">10</th>
+<td style="color:#000000; background:#dcdcc8; text-align:left; vertical-align:middle;">mitoses</td>
+<td style="color:black; background:transparent; text-align:right; vertical-align:middle;">0.0227272</td>
+</tr></tbody></table></div></section>
+
+<div class="textwrapper"><textarea placeholder="Write a comment..." oninput="this.innerHTML = this.value;pybridge._add_comment(this.parentNode.parentNode.id, this.value);">Part 2 number 9. Data Table C=0.100:
+None of the featuers are being ignored yet. The coefficients changed around from beforehand, some increased while others decreased, but none of them are completely 0.0.</textarea></div></div><div id="1524396369968" class="normal" onclick="pybridge._select_item(this.id)"><section class="section"><h1>Test and Score <span class="timestamp">Fri Nov 29 24, 18:56:24</span></h1><div class="content">
+<h2>Settings</h2><ul><b>Sampling type:</b> No sampling, test on testing data<br><b>Target class:</b> None, show average over classes<br></ul><h2>Scores</h2><table>
+<tbody><tr><th style="color:black; background:transparent; text-align:left; vertical-align:middle;">Model</th>
+<th style="color:black; background:transparent; text-align:left; vertical-align:middle;">AUC</th>
+<th style="color:black; background:transparent; text-align:left; vertical-align:middle;">CA</th>
+<th style="color:black; background:transparent; text-align:left; vertical-align:middle;">F1</th>
+<th style="color:black; background:transparent; text-align:left; vertical-align:middle;">Prec</th>
+<th style="color:black; background:transparent; text-align:left; vertical-align:middle;">Recall</th>
+<th style="color:black; background:transparent; text-align:left; vertical-align:middle;">Spec</th>
+</tr><tr><td style="color:black; background:transparent; text-align:left; vertical-align:middle;">Logistic Regression</td>
+<td style="color:black; background:transparent; text-align:right; vertical-align:middle;">0.997</td>
+<td style="color:black; background:transparent; text-align:right; vertical-align:middle;">0.971</td>
+<td style="color:black; background:transparent; text-align:right; vertical-align:middle;">0.971</td>
+<td style="color:black; background:transparent; text-align:right; vertical-align:middle;">0.971</td>
+<td style="color:black; background:transparent; text-align:right; vertical-align:middle;">0.971</td>
+<td style="color:black; background:transparent; text-align:right; vertical-align:middle;">0.965</td>
+</tr></tbody></table></div></section>
+
+<div class="textwrapper"><textarea placeholder="Write a comment..." oninput="this.innerHTML = this.value;pybridge._add_comment(this.parentNode.parentNode.id, this.value);">Part 2 number 9. Test and Score C=0.100:
+The model is doing very slightly worse than before, but not by a lot at all and it is still a very good model. Specificity dropped form 0.968 to 0.965, AUC dropped by 0.001 and the rest of the metrics went from 0.975 to 0.971, so really minuscule changes. </textarea></div></div><div id="1524396364640" class="normal" onclick="pybridge._select_item(this.id)"><section class="section"><h1>Data Table <span class="timestamp">Fri Nov 29 24, 19:03:07</span></h1><div class="content">
+<ul><b>Data instances:</b> 10<br><b>Features:</b> 1<br><b>Meta attributes:</b> 1<br></ul><table>
+<tbody><tr><th></th><th style="color:black; background:transparent; text-align:left; vertical-align:middle;">name</th>
+<th style="color:black; background:transparent; text-align:left; vertical-align:middle;">4</th>
+</tr><tr><th style="color:black; background:transparent; text-align:left; vertical-align:middle;">1</th>
+<td style="color:#000000; background:#dcdcc8; text-align:left; vertical-align:middle;">intercept</td>
+<td style="color:black; background:transparent; text-align:right; vertical-align:middle;">0</td>
+</tr><tr><th style="color:black; background:transparent; text-align:left; vertical-align:middle;">2</th>
+<td style="color:#000000; background:#dcdcc8; text-align:left; vertical-align:middle;">clump_thickness</td>
+<td style="color:black; background:transparent; text-align:right; vertical-align:middle;">0.0182359</td>
+</tr><tr><th style="color:black; background:transparent; text-align:left; vertical-align:middle;">3</th>
+<td style="color:#000000; background:#dcdcc8; text-align:left; vertical-align:middle;">U_cell_size</td>
+<td style="color:black; background:transparent; text-align:right; vertical-align:middle;">0.49759</td>
+</tr><tr><th style="color:black; background:transparent; text-align:left; vertical-align:middle;">4</th>
+<td style="color:#000000; background:#dcdcc8; text-align:left; vertical-align:middle;">U_cell_shape</td>
+<td style="color:black; background:transparent; text-align:right; vertical-align:middle;">0.191332</td>
+</tr><tr><th style="color:black; background:transparent; text-align:left; vertical-align:middle;">5</th>
+<td style="color:#000000; background:#dcdcc8; text-align:left; vertical-align:middle;">marginal_adhesion</td>
+<td style="color:black; background:transparent; text-align:right; vertical-align:middle;">0</td>
+</tr><tr><th style="color:black; background:transparent; text-align:left; vertical-align:middle;">6</th>
+<td style="color:#000000; background:#dcdcc8; text-align:left; vertical-align:middle;">single_epithelial_cell_size</td>
+<td style="color:black; background:transparent; text-align:right; vertical-align:middle;">0</td>
+</tr><tr><th style="color:black; background:transparent; text-align:left; vertical-align:middle;">7</th>
+<td style="color:#000000; background:#dcdcc8; text-align:left; vertical-align:middle;">bare_nuclei</td>
+<td style="color:black; background:transparent; text-align:right; vertical-align:middle;">0.540329</td>
+</tr><tr><th style="color:black; background:transparent; text-align:left; vertical-align:middle;">8</th>
+<td style="color:#000000; background:#dcdcc8; text-align:left; vertical-align:middle;">bland_chromatin</td>
+<td style="color:black; background:transparent; text-align:right; vertical-align:middle;">0</td>
+</tr><tr><th style="color:black; background:transparent; text-align:left; vertical-align:middle;">9</th>
+<td style="color:#000000; background:#dcdcc8; text-align:left; vertical-align:middle;">normal_nucleoli</td>
+<td style="color:black; background:transparent; text-align:right; vertical-align:middle;">0</td>
+</tr><tr><th style="color:black; background:transparent; text-align:left; vertical-align:middle;">10</th>
+<td style="color:#000000; background:#dcdcc8; text-align:left; vertical-align:middle;">mitoses</td>
+<td style="color:black; background:transparent; text-align:right; vertical-align:middle;">0</td>
+</tr></tbody></table></div></section>
+
+<div class="textwrapper"><textarea placeholder="Write a comment..." oninput="this.innerHTML = this.value;pybridge._add_comment(this.parentNode.parentNode.id, this.value);">Part 2 number 10. Test and Score C=0.012:
+Now, with C=0.012 six of the features are zero, meaning they are being ignored. </textarea></div></div><div id="1524396375728" class="normal" onclick="pybridge._select_item(this.id)"><section class="section"><h1>Test and Score <span class="timestamp">Fri Nov 29 24, 19:03:26</span></h1><div class="content">
+<h2>Settings</h2><ul><b>Sampling type:</b> No sampling, test on testing data<br><b>Target class:</b> None, show average over classes<br></ul><h2>Scores</h2><table>
+<tbody><tr><th style="color:black; background:transparent; text-align:left; vertical-align:middle;">Model</th>
+<th style="color:black; background:transparent; text-align:left; vertical-align:middle;">AUC</th>
+<th style="color:black; background:transparent; text-align:left; vertical-align:middle;">CA</th>
+<th style="color:black; background:transparent; text-align:left; vertical-align:middle;">F1</th>
+<th style="color:black; background:transparent; text-align:left; vertical-align:middle;">Prec</th>
+<th style="color:black; background:transparent; text-align:left; vertical-align:middle;">Recall</th>
+<th style="color:black; background:transparent; text-align:left; vertical-align:middle;">Spec</th>
+</tr><tr><td style="color:black; background:transparent; text-align:left; vertical-align:middle;">Logistic Regression</td>
+<td style="color:black; background:transparent; text-align:right; vertical-align:middle;">0.993</td>
+<td style="color:black; background:transparent; text-align:right; vertical-align:middle;">0.975</td>
+<td style="color:black; background:transparent; text-align:right; vertical-align:middle;">0.975</td>
+<td style="color:black; background:transparent; text-align:right; vertical-align:middle;">0.975</td>
+<td style="color:black; background:transparent; text-align:right; vertical-align:middle;">0.975</td>
+<td style="color:black; background:transparent; text-align:right; vertical-align:middle;">0.968</td>
+</tr></tbody></table></div></section>
+
+<div class="textwrapper"><textarea placeholder="Write a comment..." oninput="this.innerHTML = this.value;pybridge._add_comment(this.parentNode.parentNode.id, this.value);">Part 2 number 10. Test and Score C=0.012:
+This model is doing better than before, and just as good as the when C=1. The only place it differs from the original when C=1 is AUC is a little lower. In the first one AUC was 0.998 and in this model it is 0.993, so it is doing slightly worse in this metric, but is doing just as well in all the rest. </textarea></div></div><div id="1524005796688" class="normal" onclick="pybridge._select_item(this.id)"><section class="section"><h1>Data Table <span class="timestamp">Fri Nov 29 24, 19:20:37</span></h1><div class="content">
+<ul><b>Data instances:</b> 10<br><b>Features:</b> 1<br><b>Meta attributes:</b> 1<br></ul><table>
+<tbody><tr><th></th><th style="color:black; background:transparent; text-align:left; vertical-align:middle;">name</th>
+<th style="color:black; background:transparent; text-align:left; vertical-align:middle;">4</th>
+</tr><tr><th style="color:black; background:transparent; text-align:left; vertical-align:middle;">1</th>
+<td style="color:#000000; background:#dcdcc8; text-align:left; vertical-align:middle;">intercept</td>
+<td style="color:black; background:transparent; text-align:right; vertical-align:middle;">0</td>
+</tr><tr><th style="color:black; background:transparent; text-align:left; vertical-align:middle;">2</th>
+<td style="color:#000000; background:#dcdcc8; text-align:left; vertical-align:middle;">clump_thickness</td>
+<td style="color:black; background:transparent; text-align:right; vertical-align:middle;">0</td>
+</tr><tr><th style="color:black; background:transparent; text-align:left; vertical-align:middle;">3</th>
+<td style="color:#000000; background:#dcdcc8; text-align:left; vertical-align:middle;">U_cell_size</td>
+<td style="color:black; background:transparent; text-align:right; vertical-align:middle;">0.098054</td>
+</tr><tr><th style="color:black; background:transparent; text-align:left; vertical-align:middle;">4</th>
+<td style="color:#000000; background:#dcdcc8; text-align:left; vertical-align:middle;">U_cell_shape</td>
+<td style="color:black; background:transparent; text-align:right; vertical-align:middle;">0</td>
+</tr><tr><th style="color:black; background:transparent; text-align:left; vertical-align:middle;">5</th>
+<td style="color:#000000; background:#dcdcc8; text-align:left; vertical-align:middle;">marginal_adhesion</td>
+<td style="color:black; background:transparent; text-align:right; vertical-align:middle;">0</td>
+</tr><tr><th style="color:black; background:transparent; text-align:left; vertical-align:middle;">6</th>
+<td style="color:#000000; background:#dcdcc8; text-align:left; vertical-align:middle;">single_epithelial_cell_size</td>
+<td style="color:black; background:transparent; text-align:right; vertical-align:middle;">0</td>
+</tr><tr><th style="color:black; background:transparent; text-align:left; vertical-align:middle;">7</th>
+<td style="color:#000000; background:#dcdcc8; text-align:left; vertical-align:middle;">bare_nuclei</td>
+<td style="color:black; background:transparent; text-align:right; vertical-align:middle;">0.0953602</td>
+</tr><tr><th style="color:black; background:transparent; text-align:left; vertical-align:middle;">8</th>
+<td style="color:#000000; background:#dcdcc8; text-align:left; vertical-align:middle;">bland_chromatin</td>
+<td style="color:black; background:transparent; text-align:right; vertical-align:middle;">0</td>
+</tr><tr><th style="color:black; background:transparent; text-align:left; vertical-align:middle;">9</th>
+<td style="color:#000000; background:#dcdcc8; text-align:left; vertical-align:middle;">normal_nucleoli</td>
+<td style="color:black; background:transparent; text-align:right; vertical-align:middle;">0</td>
+</tr><tr><th style="color:black; background:transparent; text-align:left; vertical-align:middle;">10</th>
+<td style="color:#000000; background:#dcdcc8; text-align:left; vertical-align:middle;">mitoses</td>
+<td style="color:black; background:transparent; text-align:right; vertical-align:middle;">0</td>
+</tr></tbody></table></div></section>
+
+<div class="textwrapper"><textarea placeholder="Write a comment..." oninput="this.innerHTML = this.value;pybridge._add_comment(this.parentNode.parentNode.id, this.value);">Part 2 number 10. Data Table C=0.006:
+Now, when C=0.006 there are only two features that remain. The model is still doing a really good job at classification, so it shows that the relationship between these two features are the most important for prediction. It also shows that we really only need two features in order to properly classify the samples. </textarea></div></div><div id="1524005793952" class="normal" onclick="pybridge._select_item(this.id)"><section class="section"><h1>Test and Score <span class="timestamp">Fri Nov 29 24, 19:20:54</span></h1><div class="content">
+<h2>Settings</h2><ul><b>Sampling type:</b> No sampling, test on testing data<br><b>Target class:</b> None, show average over classes<br></ul><h2>Scores</h2><table>
+<tbody><tr><th style="color:black; background:transparent; text-align:left; vertical-align:middle;">Model</th>
+<th style="color:black; background:transparent; text-align:left; vertical-align:middle;">AUC</th>
+<th style="color:black; background:transparent; text-align:left; vertical-align:middle;">CA</th>
+<th style="color:black; background:transparent; text-align:left; vertical-align:middle;">F1</th>
+<th style="color:black; background:transparent; text-align:left; vertical-align:middle;">Prec</th>
+<th style="color:black; background:transparent; text-align:left; vertical-align:middle;">Recall</th>
+<th style="color:black; background:transparent; text-align:left; vertical-align:middle;">Spec</th>
+</tr><tr><td style="color:black; background:transparent; text-align:left; vertical-align:middle;">Logistic Regression</td>
+<td style="color:black; background:transparent; text-align:right; vertical-align:middle;">0.992</td>
+<td style="color:black; background:transparent; text-align:right; vertical-align:middle;">0.975</td>
+<td style="color:black; background:transparent; text-align:right; vertical-align:middle;">0.975</td>
+<td style="color:black; background:transparent; text-align:right; vertical-align:middle;">0.975</td>
+<td style="color:black; background:transparent; text-align:right; vertical-align:middle;">0.975</td>
+<td style="color:black; background:transparent; text-align:right; vertical-align:middle;">0.968</td>
+</tr></tbody></table></div></section>
+
+<div class="textwrapper"><textarea placeholder="Write a comment..." oninput="this.innerHTML = this.value;pybridge._add_comment(this.parentNode.parentNode.id, this.value);">Part 2 number 10. Test and Score C=0.006:
+This model is still performing really well with only two features left. The only difference in these metrics versus the one before is AUC dropped again by 0.001, from 0.993 to 0.992. This model is performing basically the with two features as it was will all of the features. This shows that the two remaining models are really the most important for classifying the models, and all the rest of the features do not really affect classification at all. </textarea></div></div><div id="1524103493472" class="normal" onclick="pybridge._select_item(this.id)"><section class="section"><h1>Select Columns <span class="timestamp">Fri Nov 29 24, 20:08:11</span></h1><div class="content">
+<h2>Input data</h2><ul><b>Features:</b> clump_thickness, U_cell_size, U_cell_shape, marginal_adhesion, single_epithelial_cell_size, bare_nuclei, bland_chromatin, normal_nucleoli, mitoses<br><b>Target:</b> class<br></ul><h2>Output data</h2><ul><b>Features:</b> U_cell_shape<br><b>Target:</b> class<br></ul><ul><b>Removed:</b> 8 (clump_thickness, normal_nucleoli, U_cell_size, bland_chromatin, marginal_adhesion, single_epithelial_cell_size, bare_nuclei, mitoses)<br></ul></div></section>
+
+<div class="textwrapper"><textarea placeholder="Write a comment..." oninput="this.innerHTML = this.value;pybridge._add_comment(this.parentNode.parentNode.id, this.value);">Part 3 number 19 Cell shape uniformity select columns.</textarea></div></div><div id="1524103699696" class="normal" onclick="pybridge._select_item(this.id)"><section class="section"><h1>Test and Score <span class="timestamp">Fri Nov 29 24, 20:08:19</span></h1><div class="content">
+<h2>Settings</h2><ul><b>Sampling type:</b> No sampling, test on testing data<br><b>Target class:</b> None, show average over classes<br></ul><h2>Scores</h2><table>
+<tbody><tr><th style="color:black; background:transparent; text-align:left; vertical-align:middle;">Model</th>
+<th style="color:black; background:transparent; text-align:left; vertical-align:middle;">AUC</th>
+<th style="color:black; background:transparent; text-align:left; vertical-align:middle;">CA</th>
+<th style="color:black; background:transparent; text-align:left; vertical-align:middle;">F1</th>
+<th style="color:black; background:transparent; text-align:left; vertical-align:middle;">Prec</th>
+<th style="color:black; background:transparent; text-align:left; vertical-align:middle;">Recall</th>
+<th style="color:black; background:transparent; text-align:left; vertical-align:middle;">Spec</th>
+</tr><tr><td style="color:black; background:transparent; text-align:left; vertical-align:middle;">Logistic Regression (1)</td>
+<td style="color:black; background:transparent; text-align:right; vertical-align:middle;">0.971</td>
+<td style="color:black; background:transparent; text-align:right; vertical-align:middle;">0.919</td>
+<td style="color:black; background:transparent; text-align:right; vertical-align:middle;">0.918</td>
+<td style="color:black; background:transparent; text-align:right; vertical-align:middle;">0.918</td>
+<td style="color:black; background:transparent; text-align:right; vertical-align:middle;">0.919</td>
+<td style="color:black; background:transparent; text-align:right; vertical-align:middle;">0.890</td>
+</tr></tbody></table></div></section>
+
+<div class="textwrapper"><textarea placeholder="Write a comment..." oninput="this.innerHTML = this.value;pybridge._add_comment(this.parentNode.parentNode.id, this.value);">Part 3 number 19 Cell shape uniformity Test and Score:
+The uniformity of cell shape feature had the best classification accuracy (CA) score. Uniform shape has a CA of 0.919, uniform size has a CA of 0.909 and mitoses has a CA of 0.794. Therefore, shape had the best CA score (closest to 1) out of all of the features. Size was the next best feature and mitoses had the lowest score. Since uniform shape had the best score, that is the first feature I selected and it's test and score metrics are shown above.  </textarea></div></div><div id="1524103489008" class="normal" onclick="pybridge._select_item(this.id)"><section class="section"><h1>Select Columns <span class="timestamp">Fri Nov 29 24, 20:12:27</span></h1><div class="content">
+<h2>Input data</h2><ul><b>Features:</b> clump_thickness, U_cell_size, U_cell_shape, marginal_adhesion, single_epithelial_cell_size, bare_nuclei, bland_chromatin, normal_nucleoli, mitoses<br><b>Target:</b> class<br></ul><h2>Output data</h2><ul><b>Features:</b> U_cell_shape, U_cell_size<br><b>Target:</b> class<br></ul><ul><b>Removed:</b> 7 (clump_thickness, normal_nucleoli, bland_chromatin, marginal_adhesion, single_epithelial_cell_size, bare_nuclei, mitoses)<br></ul></div></section>
+
+<div class="textwrapper"><textarea placeholder="Write a comment..." oninput="this.innerHTML = this.value;pybridge._add_comment(this.parentNode.parentNode.id, this.value);">Part 3 number 20 Cell shape uniformity and cell size uniformity select columns.</textarea></div></div><div id="1524103705168" class="normal" onclick="pybridge._select_item(this.id)"><section class="section"><h1>Test and Score <span class="timestamp">Fri Nov 29 24, 20:12:32</span></h1><div class="content">
+<h2>Settings</h2><ul><b>Sampling type:</b> No sampling, test on testing data<br><b>Target class:</b> None, show average over classes<br></ul><h2>Scores</h2><table>
+<tbody><tr><th style="color:black; background:transparent; text-align:left; vertical-align:middle;">Model</th>
+<th style="color:black; background:transparent; text-align:left; vertical-align:middle;">AUC</th>
+<th style="color:black; background:transparent; text-align:left; vertical-align:middle;">CA</th>
+<th style="color:black; background:transparent; text-align:left; vertical-align:middle;">F1</th>
+<th style="color:black; background:transparent; text-align:left; vertical-align:middle;">Prec</th>
+<th style="color:black; background:transparent; text-align:left; vertical-align:middle;">Recall</th>
+<th style="color:black; background:transparent; text-align:left; vertical-align:middle;">Spec</th>
+</tr><tr><td style="color:black; background:transparent; text-align:left; vertical-align:middle;">Logistic Regression (1)</td>
+<td style="color:black; background:transparent; text-align:right; vertical-align:middle;">0.979</td>
+<td style="color:black; background:transparent; text-align:right; vertical-align:middle;">0.938</td>
+<td style="color:black; background:transparent; text-align:right; vertical-align:middle;">0.938</td>
+<td style="color:black; background:transparent; text-align:right; vertical-align:middle;">0.938</td>
+<td style="color:black; background:transparent; text-align:right; vertical-align:middle;">0.938</td>
+<td style="color:black; background:transparent; text-align:right; vertical-align:middle;">0.920</td>
+</tr></tbody></table></div></section>
+
+<div class="textwrapper"><textarea placeholder="Write a comment..." oninput="this.innerHTML = this.value;pybridge._add_comment(this.parentNode.parentNode.id, this.value);">Part 3 number 20 Cell shape uniformity and cell size uniformity Test and Score:
+Uniform shape was the best CA feature when individual features were tested, so that was the first feature chosen. The next step was to add the other two features to see which relationship provided the best classification accuracy (CA). When I added uniform size to uniform shape, CA changed from the 0.919 seen with uniform shape to 0.938. Then removing uniform size and adding mitoses changed the score to 0.923. This means that the relationship between shape and size produced a better classification accuracy than the relationship seen between shape and mitoses. So when removing mitoses and adding size back to shape, we get a CA of 0.938, which is the closest score we have seen to 1.</textarea></div></div><div id="1524103697680" class="normal" onclick="pybridge._select_item(this.id)"><section class="section"><h1>Select Columns <span class="timestamp">Fri Nov 29 24, 20:13:33</span></h1><div class="content">
+<h2>Input data</h2><ul><b>Features:</b> clump_thickness, U_cell_size, U_cell_shape, marginal_adhesion, single_epithelial_cell_size, bare_nuclei, bland_chromatin, normal_nucleoli, mitoses<br><b>Target:</b> class<br></ul><h2>Output data</h2><ul><b>Features:</b> U_cell_shape, U_cell_size, mitoses<br><b>Target:</b> class<br></ul><ul><b>Removed:</b> 6 (clump_thickness, normal_nucleoli, bland_chromatin, marginal_adhesion, single_epithelial_cell_size, bare_nuclei)<br></ul></div></section>
+
+<div class="textwrapper"><textarea placeholder="Write a comment..." oninput="this.innerHTML = this.value;pybridge._add_comment(this.parentNode.parentNode.id, this.value);">Part 3 number 21 All three features select columns.</textarea></div></div><div id="1524103704736" class="selected" onclick="pybridge._select_item(this.id)"><section class="section"><h1>Test and Score <span class="timestamp">Fri Nov 29 24, 20:13:38</span></h1><div class="content">
+<h2>Settings</h2><ul><b>Sampling type:</b> No sampling, test on testing data<br><b>Target class:</b> None, show average over classes<br></ul><h2>Scores</h2><table>
+<tbody><tr><th style="color:black; background:transparent; text-align:left; vertical-align:middle;">Model</th>
+<th style="color:black; background:transparent; text-align:left; vertical-align:middle;">AUC</th>
+<th style="color:black; background:transparent; text-align:left; vertical-align:middle;">CA</th>
+<th style="color:black; background:transparent; text-align:left; vertical-align:middle;">F1</th>
+<th style="color:black; background:transparent; text-align:left; vertical-align:middle;">Prec</th>
+<th style="color:black; background:transparent; text-align:left; vertical-align:middle;">Recall</th>
+<th style="color:black; background:transparent; text-align:left; vertical-align:middle;">Spec</th>
+</tr><tr><td style="color:black; background:transparent; text-align:left; vertical-align:middle;">Logistic Regression (1)</td>
+<td style="color:black; background:transparent; text-align:right; vertical-align:middle;">0.984</td>
+<td style="color:black; background:transparent; text-align:right; vertical-align:middle;">0.933</td>
+<td style="color:black; background:transparent; text-align:right; vertical-align:middle;">0.933</td>
+<td style="color:black; background:transparent; text-align:right; vertical-align:middle;">0.933</td>
+<td style="color:black; background:transparent; text-align:right; vertical-align:middle;">0.933</td>
+<td style="color:black; background:transparent; text-align:right; vertical-align:middle;">0.911</td>
+</tr></tbody></table></div></section>
+
+<div class="textwrapper"><textarea placeholder="Write a comment..." oninput="this.innerHTML = this.value;pybridge._add_comment(this.parentNode.parentNode.id, this.value);">Part 3 number 21 All three features Test and Score:
+Finally, we add the mitoses feature to the other two features. This feature actually makes the performance of the model slightly worse, overall and in terms of classification accuracy (CA). With just the two featuers of shape and size the CA score was 0.938. Now, adding the mitoses feature drops the CA score to 0.933. It is not a significant drop, but this just means that this feature is not very important to the model in predicting classification. The model actually suffers a little bit when it is added, and would do better without the feature. Mitoses is one of the features that could be ignored when looking for and adding important features.</textarea></div></div></body></html>

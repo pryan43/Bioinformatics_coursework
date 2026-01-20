@@ -1,0 +1,226 @@
+<!DOCTYPE html><html><head>
+    <meta charset="utf-8">
+    <title>Orange Report</title>
+
+    <style>
+    html, body, table {
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-size: 13px;
+        margin:0px;
+        padding:0;
+        border:0 none;
+    }
+
+    h1, h2 , h3, h4, h5 {
+       padding: 1px;
+       font-size:100%;
+    }
+
+    h1 {
+        color: white;
+        background-color: black;
+        padding: 4px;
+        margin-top: 12px;
+        margin-bottom: 6px;
+    }
+
+    h2 {
+        border-bottom: 1px solid black;
+        padding-left: 2px;
+    }
+
+    ul, table, p {
+        padding: 10px;
+    }
+
+    table {
+        margin-left: -6px;
+    }
+
+    span.timestamp {
+        position: absolute;
+        right: 40px;
+        color:#ddd;
+    }
+
+    div.selected, div.normal {
+        margin: 5px;
+    }
+
+    div.selected {
+        background: #ddd;
+    }
+    @media print{
+        div.selected {
+            background: inherit;
+        }
+        ::-webkit-input-placeholder {
+            color: transparent;
+        }
+    }
+
+    div.content {
+        margin-left: 15px;
+    }
+
+    th, td {
+        text-align: left;
+        padding: 2px 6px 2px 6px;
+    }
+
+    th {
+        font-weight: bold;
+    }
+
+    @media screen {
+        td, th {
+            white-space: nowrap;
+        }
+    }
+
+    .caption {
+        text-align: center;
+        font-size: 90%;
+    }
+
+    img {
+        display: block;
+        margin: auto;
+        max-height: 20cm;
+    }
+
+    span.legend-square {
+        width: 1em;
+        height: 1em;
+        margin-right: 6px;
+        display: inline-block;
+    }
+
+    span.legend-item {
+        margin-right: 24px;
+    }
+
+    textarea {
+        border: 1px solid silver;
+        font-style: italic;
+        width: 100%;
+        height: 4em;
+    }
+
+    .textwrapper {
+        padding: 15px;
+    }
+
+    div.normal textarea:invalid {
+        display: none;
+    }
+
+    div.selected textarea {
+        display: block;
+    }
+
+    @media print{
+        section.section, img {
+            page-break-inside: avoid;
+        }
+    }
+    </style>
+    <script>
+    function scrollToId(id) {
+        var sel_el = document.getElementById(id);
+        if (sel_el != undefined) {
+            sel_el.scrollIntoView();
+            return true;
+        }
+        return false;
+    };
+
+    function setSelectedId(id) {
+        var sel_el = document.getElementsByClassName('selected')[0];
+        if (sel_el != undefined && sel_el.id != id) {
+           sel_el.className = 'normal';
+        }
+        sel_el = document.getElementById(id);
+        if (sel_el != undefined) {
+            sel_el.className = 'selected';
+            return true;
+        }
+        return false;
+    };
+    </script>
+
+</head><body onload="(function (id) {     setSelectedId(id); scrollToId(id); }(&quot;2188062702560&quot;));">
+
+ 
+
+<div id="2188062004928" class="normal" onclick="pybridge._select_item(this.id)"><section class="section"><h1>Distributions <span class="timestamp">Sun Oct 27 24, 16:51:53</span></h1><div class="content">
+<img src="data:image/png;base64,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QYICAGCCBAUAwAQJCgCACRIUAAATnrkelBUVAOy+0jtv6eKivUW1tPiOntjGXejZ26WbN6rblG//AdXRuY17wU7wTIKSmgB2393v/MnC//rv9pY9H4vuHfrX27iL0huvzSS/oGdnlpu6DnT+28+1nH7/Nu4FO8EzCQoAu0/full849Wqlts3t3kfpVLxzdf17VuVBnXgtpRK62wBl2AeFAAAEyQoAAAmGMXdwNU5fW2+qsWn5ES72teUP7mD/lLxpRelWLQ3qn1dvvseWGuTkws3itZborVtA1GHj/kOH925OoFVFd98Q25Vn7Pj9/ve817VusehiuBtTZkDW/HWHfn3zy8WbX//T7Srz37Av69FOVeUY060LM7+/pcXLz1nb+z4V59pWztBj9y+evv3frv07tVKi2rv2Pe53yFBsfuKl1+YSZ63t7Q83L3v818SEhRGSNANlERuLYg9QZvz6LNCz97WNZ/iqw9JV26hb9+s2mRxseqQFNg1pWLNu1fP3naqFjQA5kEBADBBggIAYMIzI5KsSYRdo7W8cLM0X3093oOL0oxT39gifffO4ksvysKCvdF36LD/wYedKsmMvjO7+FJBFms6csT/4ENOleRCnklQUhO7Rov8/kulqetVk7VfOyJHnCoIHjI/d+erTyxa0/a2fWd/13MJKnN3Z7/6H4uXL9nbur6QJEHtGMUFAMAECQoAgAkStKkxsQcAxjwzD7ot3p3Xz13XNWeIBLvUT3U2Y5QcaJUD03819+7b9kbfgYOtf+fnnSrJu67e1c/f1Au2t1aLTz6y/oWygKnFF58vvvIje4va29H6kV7V1r7WJgt/PVm6/q69xXf4aOvPfXSnStwxC3/1/dKN6/YW35FjrR96xJFimitB7xblD14qvXFn+QwRJfLFDzXXD6Gi3a9K/+9vZr6Rtje2/eIvk6AGZovy9cult+8uv7W6WuTrzfjBDLuhdOW1mQufs7e0vO+DrT/7iLStucn89/9sLven9pb2f/TPvZig83/xP+a++y17S/vgv3AqQV01ipuLK6WUUr0py+lSAABYn4sS1EqNZGJZrXU2NDxEhgIA3M09A5jWxGg+djYiIpH+WHRkwkokAjuwmxPtyj60pkQ6/Ot9vV/J/XtVyXZl4PF21bbuB4+9fjm1t2r87sieDYbzDrepU3urWva3rvf1SuREm7JX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"><p class="caption">Distribution of 'Worst Radius(WR)' with columns split by 'Diagnosis'</p></div></section>
+
+<div class="textwrapper"><textarea placeholder="Write a comment..." oninput="this.innerHTML = this.value;pybridge._add_comment(this.parentNode.parentNode.id, this.value);">Part 3.4 Feature Worst Radius:
+Looking at all of the features,  I think this is one of the promising ones even though I am not completely convinced it will be an easy classification. I think this feature is promising because the red(malignant) and blue (benign) groups both have their separate areas but they overlap a little bit in the middle. The frequency of blue data points goes down as it goes into red territory, and red does the same when overlapping with blue. So the model will probably be mostly succesful classifying both groups, but struggle where they overlap. Therefore, I think this feature has the potential to have successful classification. </textarea></div></div><div id="2188062010544" class="normal" onclick="pybridge._select_item(this.id)"><section class="section"><h1>Distributions <span class="timestamp">Sun Oct 27 24, 16:58:54</span></h1><div class="content">
+<img src="data:image/png;base64,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"><p class="caption">Distribution of 'perimeter(WR)' with columns split by 'Diagnosis'</p></div></section>
+
+<div class="textwrapper"><textarea placeholder="Write a comment..." oninput="this.innerHTML = this.value;pybridge._add_comment(this.parentNode.parentNode.id, this.value);">Part 3.4 Feature worst perimeter:
+This feature has a similar distribution to the one above, so I think this is another one that has the potential to be promising for classification. Both red (malignant) and blue (benign) groups have their own distinct areas on the distribution with just a small area of overlap. So I think the model could do a good job at predicting classification for the most part. 
+
+All of the distributions have widely varying magnitudes and scales. This means it is very important to preprocess the data so that varying magnitudes don't influence or skew the models' results. We want to make sure that the model performs the same for each feature, so we need to preprocess the data to standardize the scales and ranges so that they are uniform across all of the features. This makes sure that all of the features contribute equally to the model. </textarea></div></div><div id="2188062852288" class="normal" onclick="pybridge._select_item(this.id)"><section class="section"><h1>Confusion Matrix <span class="timestamp">Sun Oct 27 24, 17:17:37</span></h1><div class="content">
+<h2>Confusion matrix for Logistic Regression (showing number of instances)</h2><table>
+<tbody><tr><td style="color:black; background:transparent; text-align:left; vertical-align:middle;"></td>
+<td style="color:black; background:transparent; text-align:left; vertical-align:middle;"></td>
+<td style="color:black; background:transparent; text-align:center; vertical-align:middle;">Predicted</td>
+<td style="color:black; background:transparent; text-align:left; vertical-align:middle;"></td>
+<td style="color:black; background:transparent; text-align:left; vertical-align:middle;"></td>
+</tr><tr><td style="color:black; background:transparent; text-align:left; vertical-align:middle;"></td>
+<td style="color:black; background:transparent; text-align:left; vertical-align:middle;"></td>
+<td style="color:black; background:transparent; font-weight: bold; text-align:right; vertical-align:middle;">B</td>
+<td style="color:black; background:transparent; font-weight: bold; text-align:right; vertical-align:middle;">M</td>
+<td style="color:black; background:transparent; font-weight: bold; text-align:right; vertical-align:middle;">∑</td>
+</tr><tr><td style="color:black; background:transparent; text-align:center; vertical-align:bottom;">Actual</td>
+<td style="color:black; background:transparent; font-weight: bold; text-align:right; vertical-align:middle;">B</td>
+<td style="color:#000000; background:#cecef4; text-align:right; vertical-align:middle;">322</td>
+<td style="color:#000000; background:#fdf5f5; text-align:right; vertical-align:middle;">35</td>
+<td style="color:black; background:transparent; font-weight: bold; text-align:right; vertical-align:middle;">357</td>
+</tr><tr><td style="color:black; background:transparent; text-align:left; vertical-align:middle;"></td>
+<td style="color:black; background:transparent; font-weight: bold; text-align:right; vertical-align:middle;">M</td>
+<td style="color:#000000; background:#f4cece; text-align:right; vertical-align:middle;">190</td>
+<td style="color:#000000; background:#fafafe; text-align:right; vertical-align:middle;">22</td>
+<td style="color:black; background:transparent; font-weight: bold; text-align:right; vertical-align:middle;">212</td>
+</tr><tr><td style="color:black; background:transparent; text-align:left; vertical-align:middle;"></td>
+<td style="color:black; background:transparent; font-weight: bold; text-align:right; vertical-align:middle;">∑</td>
+<td style="color:black; background:transparent; font-weight: bold; text-align:right; vertical-align:middle;">512</td>
+<td style="color:black; background:transparent; font-weight: bold; text-align:right; vertical-align:middle;">57</td>
+<td style="color:black; background:transparent; font-weight: bold; text-align:right; vertical-align:middle;">569</td>
+</tr></tbody></table></div></section>
+
+<div class="textwrapper"><textarea placeholder="Write a comment..." oninput="this.innerHTML = this.value;pybridge._add_comment(this.parentNode.parentNode.id, this.value);">Part 3.5 Confusion Matrix without preprocessing
+The model is not doing a good job at properly predicting classification. There are 322 true positives(benign), 22 true negatives(malignant), 190 false positives(actually malignant, being put as benign), and 35 false negatives(actually benign but being put as malignant). This means that the model is overcompensating and including data into the positive (benign) class way more than it needs to. There is a lot of data that the model is determining to be in the positive (benign) class when it should really be in the negative (malignant) class, which is why there are so many false positives. Since it is pulling the majority of the data into the positive class, it is basically ignoring the negative class, so hardly any data is being distributed into that class. So this model is not successfully classifying the data, based on this confusion matrix. </textarea></div></div><div id="2188062702560" class="selected" onclick="pybridge._select_item(this.id)"><section class="section"><h1>Confusion Matrix <span class="timestamp">Sun Oct 27 24, 17:32:30</span></h1><div class="content">
+<h2>Confusion matrix for Logistic Regression (showing number of instances)</h2><table>
+<tbody><tr><td style="color:black; background:transparent; text-align:left; vertical-align:middle;"></td>
+<td style="color:black; background:transparent; text-align:left; vertical-align:middle;"></td>
+<td style="color:black; background:transparent; text-align:center; vertical-align:middle;">Predicted</td>
+<td style="color:black; background:transparent; text-align:left; vertical-align:middle;"></td>
+<td style="color:black; background:transparent; text-align:left; vertical-align:middle;"></td>
+</tr><tr><td style="color:black; background:transparent; text-align:left; vertical-align:middle;"></td>
+<td style="color:black; background:transparent; text-align:left; vertical-align:middle;"></td>
+<td style="color:black; background:transparent; font-weight: bold; text-align:right; vertical-align:middle;">B</td>
+<td style="color:black; background:transparent; font-weight: bold; text-align:right; vertical-align:middle;">M</td>
+<td style="color:black; background:transparent; font-weight: bold; text-align:right; vertical-align:middle;">∑</td>
+</tr><tr><td style="color:black; background:transparent; text-align:center; vertical-align:bottom;">Actual</td>
+<td style="color:black; background:transparent; font-weight: bold; text-align:right; vertical-align:middle;">B</td>
+<td style="color:#000000; background:#cecef4; text-align:right; vertical-align:middle;">353</td>
+<td style="color:#000000; background:#fbebeb; text-align:right; vertical-align:middle;">4</td>
+<td style="color:black; background:transparent; font-weight: bold; text-align:right; vertical-align:middle;">357</td>
+</tr><tr><td style="color:black; background:transparent; text-align:left; vertical-align:middle;"></td>
+<td style="color:black; background:transparent; font-weight: bold; text-align:right; vertical-align:middle;">M</td>
+<td style="color:#000000; background:#f4cece; text-align:right; vertical-align:middle;">10</td>
+<td style="color:#000000; background:#e2e2f8; text-align:right; vertical-align:middle;">202</td>
+<td style="color:black; background:transparent; font-weight: bold; text-align:right; vertical-align:middle;">212</td>
+</tr><tr><td style="color:black; background:transparent; text-align:left; vertical-align:middle;"></td>
+<td style="color:black; background:transparent; font-weight: bold; text-align:right; vertical-align:middle;">∑</td>
+<td style="color:black; background:transparent; font-weight: bold; text-align:right; vertical-align:middle;">363</td>
+<td style="color:black; background:transparent; font-weight: bold; text-align:right; vertical-align:middle;">206</td>
+<td style="color:black; background:transparent; font-weight: bold; text-align:right; vertical-align:middle;">569</td>
+</tr></tbody></table></div></section>
+
+<div class="textwrapper"><textarea placeholder="Write a comment..." oninput="this.innerHTML = this.value;pybridge._add_comment(this.parentNode.parentNode.id, this.value);">Part 3.7 Confusion matrix with preprocessing
+With adding the preprocessor, the model is now doing a much better job at classification. Now there are 353 true positives (actually benign), 202 true negatives (actually malignant), 10 false positives (actually malignant but classified as benign), and 4 false negatives (actually benign but being classified as malignant). This is significantly better than the 190 false positives and the 35 false negatives see above in the model that did not have preprocessing. With adding preprocessing, the varying ranges and scale of the features are no longer influencing or interfering with the models predictions. This makes sense that now that the scales and magnitudes are normalized, where the mean is 0 and standard deviation is 1 for all of the features, the model is more successful at classification. </textarea></div></div></body></html>
