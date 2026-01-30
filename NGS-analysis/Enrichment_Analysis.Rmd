@@ -1,0 +1,50 @@
+---
+title: "Enrichment_Analysis"
+author: "Paige Ryan"
+date: "2025-03-31"
+output: html_document
+---
+
+```{r}
+DEresults<-read.table(file="tnbc_vs_normal_up_FDR05.txt", sep = "\t", header=T)
+
+enrich_results<-enrichGO(gene = DEresults$GeneSymbol, OrgDb = org.Hs.eg.db, ont = "BP", keyType = "SYMBOL", readable = TRUE)
+```
+```{r}
+head(enrich_results)
+```
+
+
+```{r}
+write.table(enrich_results, file="GOBP_enrichment_results_R.txt", sep = "\t", row.names = TRUE, col.names = NA)
+```
+
+
+```{r}
+barplot(enrich_results, x= "GeneRatio", color = "p.adjust", showCategory = 20)
+```
+
+
+```{r}
+dotplot(enrich_results, x = "Count", color = "qvalue", size = "GeneRatio", showCategory = 30)
+```
+```{r}
+dotplot(enrich_results, x = "GeneRatio", color = "pvalue", size = "Count", showCategory = 10)
+```
+
+
+```{r}
+fold_change <- DEresults$logFC
+names(fold_change)<-DEresults$GeneSymbol
+```
+
+
+```{r}
+cnetplot(enrich_results, color.params = list(foldChange = fold_change, edge=TRUE), cex.param=list(gene_label = 0.5), showCategory = 3)
+```
+
+
+```{r}
+heatplot(enrich_results, foldChange = fold_change, showCategory = 10)
+```
+
