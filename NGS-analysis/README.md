@@ -59,9 +59,4 @@ analysis, to demonstrate an end-to-end RNA-seq analysis workflow.
 - org.*.eg.db annotation packages
 - ggplot2, pheatmap, and related visualization tools
 
-## Notes
-These analyses reflect my experience with R and NGS data analysis at the time
-they were completed. Some raw data files referenced in the analyses may not be
-included in this repository due to data size, access restrictions, or external
-data hosting requirements.
 
