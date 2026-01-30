@@ -1,0 +1,79 @@
+---
+title: "Differential_Exp_Analysis_Final"
+author: "Paige Ryan"
+date: "2025-04-24"
+output: html_document
+---
+
+```{r}
+cancer_counts <-read.table(file="C:/Users/Paige Ryan/Documents/NGS R studio exercises/FeatureCounts_Thyroid_Adrenal_data.txt", sep = "\t", header=T)
+
+head(cancer_counts)
+```
+
+
+
+```{r}
+y <- DGEList(counts = cancer_counts[, 2:8], genes = cancer_counts[, 1, drop = FALSE])
+
+#head(y$counts)
+#head(y$genes)
+head(y$samples)
+```
+
+
+```{r}
+y<-calcNormFactors(y)
+head(y$samples)
+```
+
+```{r}
+y$samples$group = c("Thyroid","Thyroid","Thyroid","Thyroid","Adrenal","Adrenal", "Adrenal")
+head(y$samples)
+```
+
+```{r}
+plotMDS(y)
+```
+
+```{r}
+y<-estimateDisp(y)
+y$common.dispersion
+```
+
+```{r}
+plotBCV(y)
+```
+
+```{r}
+et <- exactTest(y, pair=c("Thyroid","Adrenal"))
+
+summary(de <- decideTests(et))
+
+```
+
+```{r}
+detags <- rownames(y)[as.logical(de)]
+plotSmear(et, de.tags=detags)
+abline(h=c(-1, 1), col="blue")
+
+```
+
+```{r}
+#diffExpGenes <- topTags(et, n=1000, p.value = 0.05)
+
+#head(diffExpGenes$table)
+
+de_summary <- summary(de)
+num_DE_genes <- de_summary["Up", 1] + de_summary["Down", 1]
+
+diffExpGenes <- topTags(et, n = num_DE_genes, p.value = 0.05)
+
+head(diffExpGenes)
+```
+
+```{r}
+write.table(diffExpGenes$table, file="thyroid_v_adrenal_exactTest.txt", sep = "\t", row.names=TRUE, col.names=NA)
+```
+
+
