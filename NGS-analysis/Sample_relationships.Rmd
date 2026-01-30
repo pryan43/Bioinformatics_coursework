@@ -1,0 +1,128 @@
+---
+title: "Sample_Relationships"
+output: html_document
+date: "2025-03-15"
+---
+#View and Load Datasets
+
+```{r}
+exp_counts <- read.table(file="mammary_counts_v1.txt", sep = "\t", header = T)
+
+sample_data <- read.table(file="sample_data.txt", sep = "\t", header = T, row.names=1)
+
+head(exp_counts)
+
+nrow(exp_counts)
+
+sample_data
+
+```
+
+
+#ID Mapping
+
+```{r}
+mapping <-select(org.Mm.eg.db, as.character(exp_counts$ENSEMBL), keytype = "ENSEMBL", column="SYMBOL")
+
+head(mapping)
+
+nrow(mapping)
+
+d <- duplicated(mapping$ENSEMBL)
+sum(d)
+mapping <- mapping[!d,]
+nrow(mapping)
+
+exp_counts <- merge(exp_counts, mapping, by = "ENSEMBL")
+head(exp_counts)
+
+missing <- is.na(exp_counts$SYMBOL)
+exp_counts <- exp_counts[!missing,]
+nrow(exp_counts)
+
+
+o <- order(rowSums(exp_counts[,c(2:13)]), decreasing=TRUE)
+exp_counts <- exp_counts[o,]
+d2 <- duplicated(exp_counts$SYMBOL)
+exp_counts <- exp_counts[!d2,]
+
+sum(d2)
+nrow(exp_counts)
+
+row.names(exp_counts) <- exp_counts$SYMBOL
+exp_counts$SYMBOL <- NULL
+exp_counts$ENSEMBL <- NULL
+head(exp_counts)
+
+```
+
+
+
+#DESeqDataSet
+
+```{r}
+data_deseq <- DESeqDataSetFromMatrix(countData = exp_counts, colData = sample_data, design = ~ 1)
+
+head(counts(data_deseq))
+```
+
+
+#Filtering Dataset
+
+```{r}
+nrow(data_deseq)
+data_deseq <- data_deseq[ rowSums(counts(data_deseq)) > 1, ]
+nrow(data_deseq)
+
+```
+
+
+
+#Transforming Dataset
+
+```{r}
+rld <- rlog(data_deseq, blind=FALSE)
+```
+
+#Sample Distance Heatmap
+
+```{r}
+sampleDists<-dist(t(assay(rld)))
+sampleDists
+sampleDistMatrix<-as.matrix(sampleDists)
+
+rownames(sampleDistMatrix) <- paste( rld$cell_type, rld$dev_stage, rld$replicate, sep="-" )
+
+colnames(sampleDistMatrix) <- paste( rld$cell_type, rld$dev_stage, rld$replicate, sep="-" )
+
+colors <- colorRampPalette( rev(brewer.pal(9, "Blues")) )(255)
+
+pheatmap(sampleDistMatrix, clustering_distance_rows=sampleDists, clustering_distance_cols=sampleDists, col=colors)
+
+```
+
+
+#PCA
+
+```{r}
+plotPCA(rld, intgroup = c("cell_type", "dev_stage"))
+```
+
+#GeneHeatmap
+
+```{r}
+geneVars <- rowVars(assay(rld))
+geneVarsOrdered <- order(geneVars, decreasing = TRUE)
+topVarGenes <- head(geneVarsOrdered, 50)
+
+mat <- assay(rld)[ topVarGenes, ]
+mat <- mat - rowMeans(mat)
+
+df <- as.data.frame(colData(rld)[,c("cell_type","dev_stage")])
+
+clear_col_names <- paste( rld$cell_type, rld$dev_stage, rld$replicate, sep=".")
+
+topGenesHeatmap <- pheatmap(mat, annotation_col=df, labels_col = clear_col_names)
+```
+
+
