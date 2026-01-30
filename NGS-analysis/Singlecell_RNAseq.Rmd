@@ -1,0 +1,179 @@
+---
+title: "SingleCell_RNAseq"
+author: "Paige Ryan"
+date: "2025-04-03"
+output: html_document
+---
+```{r}
+pbmc.data<-Read10X(data.dir = "~/NGS R studio exercises")
+
+head(pbmc.data)
+```
+```{r}
+pbmc<- CreateSeuratObject(counts= pbmc.data, project= "pbmc3k", min.cells = 3, min.features = 200)
+```
+```{r}
+head(pbmc[["RNA"]]$counts)
+```
+```{r}
+nrow(pbmc.data)
+ncol(pbmc.data)
+nrow(pbmc[["RNA"]]$counts)
+ncol(pbmc[["RNA"]]$counts)
+```
+```{r}
+head(pbmc@meta.data)
+```
+```{r}
+pbmc[["percent.mt"]]<- PercentageFeatureSet(pbmc, pattern = "^MT-")
+
+head(pbmc@meta.data)
+```
+```{r}
+VlnPlot(pbmc, features = c("nFeature_RNA", "nCount_RNA", "percent.mt"), ncol = 3)
+```
+```{r}
+pbmc<-subset(pbmc, subset = nFeature_RNA > 200 & nFeature_RNA <2500 & percent.mt <5)
+
+ncol(pbmc)
+```
+```{r}
+pbmc <- NormalizeData(pbmc, normalization.method = "LogNormalize", scale.factor = 10000)
+```
+```{r}
+pbmc <- FindVariableFeatures(pbmc, selection.method = "vst", nfeatures = 2000)
+
+top10<-head(VariableFeatures(pbmc), 10)
+
+LabelPoints(plot = VariableFeaturePlot(pbmc), points = top10, repel = TRUE)
+```
+```{r}
+all.genes<-rownames(pbmc)
+
+pbmc<- ScaleData(pbmc, features = all.genes)
+```
+```{r}
+pbmc <- RunPCA(pbmc, features = VariableFeatures(object = pbmc), nfeatures.print = 5)
+```
+```{r}
+DimPlot(pbmc, reduction = "pca") + NoLegend()
+```
+```{r}
+DimHeatmap(pbmc, dims = 1, cells = 500, nfeatures = 30, balanced = TRUE)
+```
+
+```{r}
+ElbowPlot(pbmc)
+```
+
+```{r}
+pbmc<-FindNeighbors(pbmc, dims = 1:10)
+
+pbmc<-FindClusters(pbmc, resolution = 0.5)
+
+head(Idents(pbmc), 5)
+```
+```{r}
+pbmc<- RunUMAP(pbmc, dims = 1:10)
+
+DimPlot(pbmc, reduction = "umap")
+```
+
+```{r}
+cluster2.markers<- FindMarkers(pbmc, ident.1 = 2)
+
+head(cluster2.markers)
+```
+
+```{r}
+cluster5.markers<-FindMarkers(pbmc, ident.1 = 5, ident.2 = c(0,3))
+
+head(cluster5.markers)
+```
+
+```{r}
+pbmc.markers<-FindAllMarkers(pbmc)
+
+head(pbmc.markers[which(pbmc.markers$cluster ==2),])
+```
+
+```{r}
+VlnPlot(pbmc, features = c("MS4A1", "CD79A"))
+```
+
+
+```{r}
+FeaturePlot(pbmc, features = c("MS4A1", "GNLY", "CD3E", "CD14", "FCER1A", "FCGR3A", "LYZ", "PPBP", "CD8A"))
+```
+
+```{r}
+#Differential expression for homework 11 question 5
+
+mycluster.markers<- FindMarkers(pbmc, ident.1 = 0, ident.2 = 1)
+
+head(mycluster.markers)
+
+```
+```{r}
+#Diff exp homework violin plot
+VlnPlot(pbmc, features = c("TYROBP", "S100A9"))
+```
+
+```{r}
+#Diff exp homework UMAP
+FeaturePlot(pbmc, features = c("TYROBP", "S100A9"))
+```
+
+```{r}
+source("https://raw.githubusercontent.com/IanevskiAleksandr/sc-type/master/R/gene_sets_prepare.R")
+
+source("https://raw.githubusercontent.com/IanevskiAleksandr/sc-type/master/R/sctype_score_.R")
+
+```
+
+```{r}
+db_ = "https://raw.githubusercontent.com/IanevskiAleksandr/sc-type/master/ScTypeDB_full.xlsx"; tissue = "Immune system"
+
+gs_list = gene_sets_prepare(db_, tissue)
+
+es.max = sctype_score(scRNAseqData = pbmc[["RNA"]]$scale.data, scaled = TRUE,  gs = gs_list$gs_positive, gs2 = gs_list$gs_negative)
+```
+
+```{r}
+cL_results = do.call("rbind", lapply(unique(pbmc@meta.data$seurat_clusters), function(cl){
+    es.max.cl = sort(rowSums(es.max[ , rownames(pbmc@meta.data[pbmc@meta.data$seurat_clusters==cl, ])]), decreasing = !0)
+    head(data.frame(cluster = cl, type = names(es.max.cl), scores = es.max.cl, ncells = sum(pbmc@meta.data$seurat_clusters==cl)), 10)
+}))
+
+sctype_scores = cL_results %>% group_by(cluster) %>% top_n(n = 1, wt = scores)
+
+sctype_scores$type[as.numeric(as.character(sctype_scores$scores)) < sctype_scores$ncells/4] = "Unknown"
+
+sctype_scores
+
+```
+
+
+```{r}
+
+new.cluster.ids <- c("Naive CD4+ T", "Classical Monocytes", " Naive CD4+ T-2", "Naive B", "CD8+ NKT-like", "Non-class Mono", " CD8+ NKT-like-2 ", "Myeloid Dendritic Cells", "Platelets")
+
+names(new.cluster.ids) <- levels(pbmc)
+
+pbmc <- RenameIdents(pbmc, new.cluster.ids)
+
+
+DimPlot(pbmc, reduction = "umap", label = TRUE, pt.size = 0.5) + NoLegend()
+
+```
+```{r}
+new.cluster.ids <- c("Naive CD4+ T", "CD14+ Mono", " Memory CD4+", "B", "CD8+ T", "FCGR3A+ Mono", "NK", "DC", "Platelet")
+
+names(new.cluster.ids) <- levels(pbmc)
+
+pbmc <- RenameIdents(pbmc, new.cluster.ids)
+
+
+DimPlot(pbmc, reduction = "umap", label = TRUE, pt.size = 0.5) + NoLegend()
+```
+
