@@ -1,0 +1,98 @@
+---
+title: "Sample_Relationships Final Project"
+output: html_document
+date: "2025-04-22"
+---
+#View and Load Datasets
+
+```{r}
+exp_counts <- read.table(file= "C:/Users/Paige Ryan/Documents/NGS R studio exercises/FeatureCounts_Thyroid_Adrenal_data.txt", sep = "\t", header = T)
+
+
+sample_data <- read.table(file="C:/Users/Paige Ryan/Documents/NGS R studio exercises/Thyroid_Adrenal_metadata.txt", sep = "\t", header = T, row.names=1)
+
+head(exp_counts)
+
+nrow(exp_counts)
+
+sample_data
+
+
+```
+
+
+
+#DESeqDataSet
+
+```{r}
+counts_only <-exp_counts[,-1]
+rownames(counts_only) <- exp_counts$Gene_ID
+
+rownames(sample_data) <- colnames(counts_only)
+
+
+data_deseq <- DESeqDataSetFromMatrix(countData = counts_only, colData = sample_data, design = ~ 1)
+
+head(counts(data_deseq))
+```
+
+
+#Filtering Dataset
+
+```{r}
+nrow(data_deseq)
+data_deseq <- data_deseq[ rowSums(counts(data_deseq)) > 1, ]
+nrow(data_deseq)
+
+```
+
+
+
+#Transforming Dataset
+
+```{r}
+rld <- rlog(data_deseq, blind=FALSE)
+```
+
+#Sample Distance Heatmap
+
+```{r}
+sampleDists<-dist(t(assay(rld)))
+sampleDists
+sampleDistMatrix<-as.matrix(sampleDists)
+
+rownames(sampleDistMatrix) <- paste( rld$tissue, sep="-" )
+
+colnames(sampleDistMatrix) <- paste( rld$tissue, sep="-" )
+
+colors <- colorRampPalette( rev(brewer.pal(9, "Blues")) )(255)
+
+pheatmap(sampleDistMatrix, clustering_distance_rows=sampleDists, clustering_distance_cols=sampleDists, col=colors)
+
+```
+
+
+#PCA
+
+```{r}
+plotPCA(rld, intgroup = c("tissue"))
+```
+
+#GeneHeatmap
+
+```{r}
+geneVars <- rowVars(assay(rld))
+geneVarsOrdered <- order(geneVars, decreasing = TRUE)
+topVarGenes <- head(geneVarsOrdered, 50)
+
+mat <- assay(rld)[ topVarGenes, ]
+mat <- mat - rowMeans(mat)
+
+df <- as.data.frame(colData(rld)[,c("tissue"), drop=FALSE])
+
+clear_col_names <- paste( rld$tissue, sep=".")
+
+topGenesHeatmap <- pheatmap(mat, annotation_col=df, labels_col = clear_col_names)
+```
+
+
