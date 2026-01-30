@@ -1,0 +1,120 @@
+---
+title: "Cancer Analysis"
+author: "Paige Ryan"
+date: "2025-04-16"
+output: html_document
+---
+
+```{r}
+#Retrieving Methylation and Transcriptomic Data
+
+lgg.samples<-matchedMetExp("TCGA-LGG", n=10)
+
+gbm.samples<-matchedMetExp("TCGA-GBM", n=10)
+
+
+```
+```{r}
+head(lgg.samples)
+
+head(gbm.samples)
+```
+
+```{r}
+lgg.samples.standard<- c("TCGA-E1-5319-01", "TCGA-HT-8563-01", "TCGA-DB-5273-01", "TCGA-DB-A4XH-01", "TCGA-S9-A6WE-01", "TCGA-DU-8168-01", "TCGA-DH-5141-01", "TCGA-DH-A66B-01", "TCGA-FN-7833-01", "TCGA-HT-7686-01")
+
+gbm.samples.standard<-c("TCGA-06-5410-01", "TCGA-19-5960-01", "TCGA-14-0781-01", "TCGA-76-4929-01", "TCGA-06-5858-01", "TCGA-28-5218-01", "TCGA-28-5207-01", "TCGA-76-4928-01", "TCGA-15-1444-01", "TCGA-06-5411-01")
+
+samples<-c(lgg.samples.standard, gbm.samples.standard)
+```
+
+
+```{r}
+#download data
+
+query.met<- GDCquery(project = c("TCGA-LGG","TCGA-GBM"), data.category = "DNA Methylation", data.type = "Methylation Beta Value", platform = "Illumina Human Methylation 450", barcode = samples )
+
+GDCdownload(query.met)
+
+met<-GDCprepare(query.met, save=FALSE)
+
+met<-subset(met,subset = as.character(GenomicRanges::seqnames(met))%in% c("chr9"))
+
+head(assays(met)[[1]],50)
+
+```
+
+
+```{r}
+query.exp<- GDCquery(project = c("TCGA-LGG","TCGA-GBM"), data.category = "Transcriptome Profiling", data.type = "Gene Expression Quantification", barcode = samples )
+
+GDCdownload(query.exp)
+
+gene_exp<-GDCprepare(query.exp, save=FALSE)
+
+head(assays(gene_exp)[[4]],50)
+```
+
+
+```{r}
+#Combining Methylation and Expression Data
+
+distal.probes <- get.feature.probe(genome = "hg38", met.platform = "450K", TSS.range = list(upstream = 2000, downstream = 2000))
+
+head(distal.probes)
+```
+
+
+```{r}
+mae<-createMAE(exp=gene_exp, met=met, save=TRUE, linearize.exp = TRUE, save.filename = "mae.rda", filter.probes = distal.probes, met.platform = "450K", genome = "hg38", TCGA = TRUE)
+```
+
+
+```{r}
+#Differential Exp (Methylation)
+
+group.col<-"project_id"
+group1<-"TCGA-GBM"
+group2<-"TCGA-LGG"
+direction<-"hypo"
+dir.out<-paste0("elmer/", direction)
+dir.create(dir.out, showWarnings = FALSE, recursive = TRUE)
+
+sig.probes <- get.diff.meth(data = mae, group.col = group.col, group1 = group1, group2 = group2, minSubgroupFrac = 1.0, sig.dif = 0.2, diff.dir = direction, dir.out = dir.out, pvalue = 0.1)
+
+head(sig.probes)
+
+```
+
+
+```{r}
+#Identify Enhancers
+
+nearGenes <-GetNearGenes(data= mae, numFlankingGenes = 4, probes = sig.probes$probe,)
+
+head(nearGenes)
+
+pair<-get.pair(data=mae, group.col=group.col, group1 = group1, group2 = group2, nearGenes = nearGenes, mode = "supervised",minSubgroupFrac = 1, raw.pvalue=0.1, Pe=0.5, filter.probes=TRUE, filter.percentage = 0.05, filter.portion = 0.3, dir.out = dir.out, diff.dir=direction, label = direction)
+```
+
+
+```{r}
+#Enriched TF Binding Motifs
+
+enriched.motif<-get.enriched.motif(data=mae, probes= pair$Probe, dir.out = dir.out, label = direction, pvalue = 0.25, min.incidence =10, lower.OR = 1.1)
+```
+
+
+```{r}
+#Key TF in GBM
+
+TF<-get.TFs(data=mae, group.col=group.col, group1 = group1, group2 = group2, mode = "supervised", enriched.motif = enriched.motif, dir.out = dir.out, diff.dir=direction, label = direction)
+
+
+```
+
+
+```{r}
+scatter.plot(mae, category = group.col, save=FALSE, lm_line = TRUE, byTF=list(TF=unlist(stringr::str_split("E2F7;E2F1;E2F2",";")), probe=enriched.motif[["E2F4_HUMAN.H11MO.1.A"]]))
+```
+
